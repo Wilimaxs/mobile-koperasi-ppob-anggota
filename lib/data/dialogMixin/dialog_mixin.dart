@@ -9,7 +9,9 @@ mixin DialogMixin {
 
   BuildContext get context {
     if (_context == null) {
-      throw Exception('Context not set. Please call setContext() before accessing context.');
+      throw Exception(
+        'Context not set. Please call setContext() before accessing context.',
+      );
     }
     return _context!;
   }
@@ -18,7 +20,7 @@ mixin DialogMixin {
 
   // ==================== SNACKBAR ====================
 
-  /// Show success snackbar (hijau)
+  /// Show success snackbar (green)
   void showSuccessSnackbar(String message, {Duration? duration}) {
     _showSnackbar(
       message: message,
@@ -28,7 +30,7 @@ mixin DialogMixin {
     );
   }
 
-  /// Show error snackbar (merah)
+  /// Show error snackbar (red)
   void showErrorSnackbar(String message, {Duration? duration}) {
     _showSnackbar(
       message: message,
@@ -48,7 +50,7 @@ mixin DialogMixin {
     );
   }
 
-  /// Show info snackbar (biru)
+  /// Show info snackbar (blue)
   void showInfoSnackbar(String message, {Duration? duration}) {
     _showSnackbar(
       message: message,
@@ -58,7 +60,7 @@ mixin DialogMixin {
     );
   }
 
-  /// Base method untuk show snackbar
+  /// Base method for show snackbar
   void _showSnackbar({
     required String message,
     required Color backgroundColor,
@@ -74,19 +76,14 @@ mixin DialogMixin {
             Icon(icon, color: Colors.white),
             const SizedBox(width: 12),
             Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-              ),
+              child: Text(message, style: const TextStyle(color: Colors.white)),
             ),
           ],
         ),
         backgroundColor: backgroundColor,
         duration: duration ?? const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -142,8 +139,8 @@ mixin DialogMixin {
   Future<bool> showConfirm({
     required String title,
     required String message,
-    String confirmText = 'Ya',
-    String cancelText = 'Tidak',
+    String confirmText = 'Yes',
+    String cancelText = 'No',
     Color? confirmColor,
   }) async {
     if (!hasContext) return false;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ppob_koperasi_payment/data/local_storage/storage_manager.dart';
 import 'dio_formater/interceptors/dio_interceptors.dart';
 
 class DioInitializer {
@@ -11,9 +12,7 @@ class DioInitializer {
           baseUrl: 'https://your-api-base-url.com',
           connectTimeout: const Duration(seconds: 30),
           receiveTimeout: const Duration(seconds: 30),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: {'Content-Type': 'application/json'},
         ),
       );
       _dio!.interceptors.add(DioInterceptors.logging);
@@ -29,14 +28,17 @@ class DioInitializer {
     final Map<String, dynamic> newHeaders = {'Accept': 'application/json'};
 
     newHeaders.addAll({});
-    // final token = await SecureStorageManager().getToken() ?? "";
-    // final xTokenPin = await SecureStorageManager().getxtokenpin() ?? "";
-    // if (!newHeaders.containsKey("Authorization") && token.isNotEmpty) {
-    //   newHeaders["Authorization"] = token;
-    // }
-    // if (!newHeaders.containsKey("xTokenPin") && xTokenPin.isNotEmpty) {
-    //   newHeaders["xTokenPin"] = xTokenPin;
-    // }
+    final token =
+        await StorageManager.read<String>('token', isSecure: true) ?? "";
+    final xTokenPin =
+        await StorageManager.read<String>('xTokenPin', isSecure: true) ?? "";
+
+    if (token.isNotEmpty) {
+      newHeaders["Authorization"] = "Bearer $token";
+    }
+    if (xTokenPin.isNotEmpty) {
+      newHeaders["xTokenPin"] = xTokenPin;
+    }
 
     return Options(
       headers: newHeaders,
