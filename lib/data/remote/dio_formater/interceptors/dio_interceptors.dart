@@ -23,24 +23,15 @@ class DioInterceptors {
     onResponse: (response, handler) {
       final statusCode = response.statusCode;
       final data = response.data;
-      String? message;
-      dynamic result;
 
-      if (data is Map<String, dynamic>) {
-        message = data['message'];
-        result = data['result'];
-      }
       debugPrint('RESPONSE: $statusCode ${response.requestOptions.path}');
-      if (message != null && message.isNotEmpty) {
-        debugPrint('Message: $message');
-      } else {
-        debugPrint('Message: (empty)');
+      if (data is Map<String, dynamic>) {
+        final message = data['message']?.toString();
+        debugPrint('Message: ${message ?? '(empty)'}');
+      } else if (data is List) {
+        debugPrint('Result: List with ${data.length} items');
       }
-      if (result != null) {
-        debugPrint('Result: $result');
-      } else {
-        debugPrint('Result: (null)');
-      }
+
       debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       return handler.next(response);
     },

@@ -44,10 +44,9 @@ class ErrorHandler {
 
   // Get user friendly message from DioException and message API response
   static String getUserFriendlyMessage(DioException error) {
-    // Handle Error Message from API Response
     final data = error.response?.data;
     if (data is Map<String, dynamic>) {
-      final apiMessage = data['message'] as String?;
+      final apiMessage = data['message']?.toString();
       if (apiMessage != null && apiMessage.isNotEmpty) {
         return apiMessage;
       }
@@ -70,7 +69,8 @@ class ErrorHandler {
       case DioExceptionType.badResponse:
         final statusCode = error.response?.statusCode;
         final errorMessages = _errorStatusCodeMapping();
-        return errorMessages[statusCode] ?? 'Something went wrong with status code $statusCode';
+        return errorMessages[statusCode] ??
+            'Something went wrong with status code $statusCode';
 
       case DioExceptionType.cancel:
         return 'Request was cancelled';
@@ -79,13 +79,14 @@ class ErrorHandler {
         return 'Connection error, please check your internet connection';
 
       case DioExceptionType.unknown:
-        if (error.message?.contains('SocketException') ?? false) {
+        final errorMsg = error.message?.toLowerCase() ?? '';
+        if (errorMsg.contains('socketexception') ||
+            errorMsg.contains('handshake')) {
           return 'Connection error, please check your internet connection';
         }
         return 'Unexpected error occurred';
     }
   }
-
 
   // Logging error details
   static void logError({
