@@ -3,22 +3,29 @@ import 'package:ppob_koperasi_payment/data/local_storage/storage_manager.dart';
 import 'dio_formater/interceptors/dio_interceptors.dart';
 
 class DioInitializer {
-  static Dio? _dio;
+  Dio? _dio;
 
-  static Dio get dio {
-    if (_dio == null) {
-      _dio = Dio(
-        BaseOptions(
-          baseUrl: 'https://your-api-base-url.com',
-          connectTimeout: const Duration(seconds: 30),
-          receiveTimeout: const Duration(seconds: 30),
-          headers: {'Content-Type': 'application/json'},
-        ),
-      );
-      _dio!.interceptors.add(DioInterceptors.logging);
-      _dio!.interceptors.add(DioInterceptors.errorHandler);
-    }
+  Dio get dio {
+    _dio ??= _initDio();
     return _dio!;
+  }
+
+  Dio _initDio() {
+    final dioInstance = Dio(
+      BaseOptions(
+        baseUrl: 'https://your-api-base-url.com',
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
+        headers: {'Content-Type': 'application/json'},
+      ),
+    );
+
+    dioInstance.interceptors.addAll([
+      DioInterceptors.logging,
+      DioInterceptors.errorHandler,
+    ]);
+
+    return dioInstance;
   }
 
   Future<Options> _buildOptions({
@@ -27,16 +34,16 @@ class DioInitializer {
   }) async {
     final Map<String, dynamic> newHeaders = {'Accept': 'application/json'};
 
-    newHeaders.addAll({});
-    final token =
-        await StorageManager.read<String>('token', isSecure: true) ?? "";
-    final xTokenPin =
-        await StorageManager.read<String>('xTokenPin', isSecure: true) ?? "";
+    final token = await StorageManager.read<String>('token', isSecure: true);
+    final xTokenPin = await StorageManager.read<String>(
+      'xTokenPin',
+      isSecure: true,
+    );
 
-    if (token.isNotEmpty) {
+    if (token != null && token.isNotEmpty) {
       newHeaders["Authorization"] = "Bearer $token";
     }
-    if (xTokenPin.isNotEmpty) {
+    if (xTokenPin != null && xTokenPin.isNotEmpty) {
       newHeaders["xTokenPin"] = xTokenPin;
     }
 
@@ -59,7 +66,11 @@ class DioInitializer {
         queryParameters: queryParameters,
         options: options,
       );
-      return parser(response.data ?? {});
+      final data = response.data;
+      if (data is Map<String, dynamic>) {
+        return parser(data);
+      }
+      return parser({});
     } catch (e) {
       rethrow;
     }
@@ -68,7 +79,7 @@ class DioInitializer {
   Future<T> post<T>({
     required String url,
     required T Function(Map<String, dynamic>) parser,
-    Map<String, dynamic>? data,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
@@ -79,7 +90,11 @@ class DioInitializer {
         queryParameters: queryParameters,
         options: options,
       );
-      return parser(response.data ?? {});
+      final responseData = response.data;
+      if (responseData is Map<String, dynamic>) {
+        return parser(responseData);
+      }
+      return parser({});
     } catch (e) {
       rethrow;
     }

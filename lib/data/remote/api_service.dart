@@ -6,14 +6,26 @@ class ApiService {
 
   ApiService(this._dio);
 
-  // Example login method that fetches data from an endpoint
-  Future<ApiResponse<T>> login<T>({
-    required String endpoint,
-    required T Function(Map<String, dynamic>) parser,
+  // Example of a specific API call method (login)
+  Future<ApiResponse<String>> login({
+    required String username,
+    required String password,
+  }) async {
+    return await _dio.post(
+      url: '/auth/login',
+      data: {'username': username, 'password': password},
+      parser: (json) =>
+          ApiResponse<String>.fromJson(json, (data) => data.toString()),
+    );
+  }
+
+  // Example of a specific API call method (get products)
+  Future<ApiResponseList<T>> getProducts<T>({
+    required T Function(Map<String, dynamic>) modelParser,
   }) async {
     return await _dio.get(
-      url: endpoint,
-      parser: (json) => ApiResponse<T>.fromJson(json, parser),
+      url: '/products',
+      parser: (json) => ApiResponseList<T>.fromJson(json, modelParser),
     );
   }
 }
