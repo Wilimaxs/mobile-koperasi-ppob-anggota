@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:ppob_koperasi_payment/data/local_storage/storage_manager.dart';
+import 'package:ppob_koperasi_payment/data/remote/dio_formater/interceptors/dio_options_Builder.dart';
 import 'dio_formater/interceptors/dio_interceptors.dart';
 
 class DioInitializer {
@@ -28,39 +28,13 @@ class DioInitializer {
     return dioInstance;
   }
 
-  Future<Options> _buildOptions({
-    int sendTimeout = 60000,
-    int receiveTimeout = 60000,
-  }) async {
-    final Map<String, dynamic> newHeaders = {'Accept': 'application/json'};
-
-    final token = await StorageManager.read<String>('token', isSecure: true);
-    final xTokenPin = await StorageManager.read<String>(
-      'xTokenPin',
-      isSecure: true,
-    );
-
-    if (token != null && token.isNotEmpty) {
-      newHeaders["Authorization"] = "Bearer $token";
-    }
-    if (xTokenPin != null && xTokenPin.isNotEmpty) {
-      newHeaders["xTokenPin"] = xTokenPin;
-    }
-
-    return Options(
-      headers: newHeaders,
-      sendTimeout: Duration(milliseconds: sendTimeout),
-      receiveTimeout: Duration(milliseconds: receiveTimeout),
-    );
-  }
-
   Future<T> get<T>({
     required String url,
     required T Function(Map<String, dynamic>) parser,
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final options = await _buildOptions();
+      final options = await DioOptionsBuilder.build();
       final response = await dio.get(
         url,
         queryParameters: queryParameters,
@@ -83,7 +57,7 @@ class DioInitializer {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final options = await _buildOptions();
+      final options = await DioOptionsBuilder.build();
       final response = await dio.post(
         url,
         data: data,
