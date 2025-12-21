@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ppob_koperasi_payment/data/remote/dio_formater/interceptors/dio_options_Builder.dart';
-import 'dio_formater/interceptors/dio_interceptors.dart';
+import 'interceptors/dio_interceptors.dart';
 
 class DioInitializer {
   Dio? _dio;
