@@ -7,6 +7,7 @@ class StorageManager {
     SecureStorage.init();
   }
 
+  // storage Save method with isSecure parameter
   static Future<void> save(
     String key,
     dynamic value, {
@@ -19,6 +20,7 @@ class StorageManager {
     }
   }
 
+  // storage Read method with isSecure parameter
   static Future<T?> read<T>(String key, {bool isSecure = false}) async {
     if (isSecure) {
       return await SecureStorage.read<T>(key);
@@ -27,6 +29,7 @@ class StorageManager {
     }
   }
 
+  // storage Delete method with isSecure parameter
   static Future<void> delete(String key, {bool isSecure = false}) async {
     if (isSecure) {
       await SecureStorage.delete(key);
@@ -35,6 +38,7 @@ class StorageManager {
     }
   }
 
+  // Delete all data from both storages
   static Future<void> deleteAll() async {
     await Storage.deleteAll();
     await SecureStorage.deleteAll();
