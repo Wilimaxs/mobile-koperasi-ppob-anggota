@@ -5,6 +5,7 @@ import 'package:ppob_koperasi_payment/data/local_storage/storage_manager.dart';
 
 abstract class BaseController<T> extends GetxController with DialogMixin {
   final isLoading = false.obs;
+  final isRefreshing = false.obs;
 
   final data = Rxn<T>();
 
@@ -17,6 +18,17 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
     if (context != null) FocusScope.of(context).unfocus();
   }
 
+  Future<void> onRefresh() async {
+    isRefreshing.value = true;
+    try {
+      await fetchData();
+    } finally {
+      isRefreshing.value = false;
+    }
+  }
+
+  Future<void> fetchData() async {}
+
   Future<void> saveLocal(
     String key,
     dynamic value, {
@@ -27,5 +39,11 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
 
   Future<E?> readLocal<E>(String key, {bool isSecure = false}) async {
     return await StorageManager.read<E>(key, isSecure: isSecure);
+  }
+
+  @override
+  void onClose() {
+    data.value = null;
+    super.onClose();
   }
 }
