@@ -6,14 +6,13 @@ class DioInterceptors {
   static InterceptorsWrapper get logging => InterceptorsWrapper(
     // Log request details
     onRequest: (options, handler) {
-      debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      debugPrint('REQUEST: ${options.method} ${options.path}');
-      debugPrint('Headers: ${options.headers}');
-      if (options.queryParameters.isNotEmpty) {
-        debugPrint('Query: ${options.queryParameters}');
-      }
+      debugPrint('━━━━━━━━━━━━━━━━ REQUEST ━━━━━━━━━━━━━━━━');
+      debugPrint('URL: [${options.method}] ${options.baseUrl}${options.path}');
       if (options.data != null) {
         debugPrint('Body: ${options.data}');
+      }
+      if (options.queryParameters.isNotEmpty) {
+        debugPrint('Params: ${options.queryParameters}');
       }
       debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       return handler.next(options);
@@ -21,15 +20,17 @@ class DioInterceptors {
 
     // Log response details
     onResponse: (response, handler) {
-      final statusCode = response.statusCode;
-      final data = response.data;
+      debugPrint('━━━━━━━━━━━━━━━━ RESPONSE ━━━━━━━━━━━━━━━');
+      debugPrint(
+        'Status: ${response.statusCode} | URL: ${response.requestOptions.path}',
+      );
 
-      debugPrint('RESPONSE: $statusCode ${response.requestOptions.path}');
+      final data = response.data;
       if (data is Map<String, dynamic>) {
         final message = data['message']?.toString();
-        debugPrint('Message: ${message ?? '(empty)'}');
+        if (message != null) debugPrint('Msg: $message');
       } else if (data is List) {
-        debugPrint('Result: List with ${data.length} items');
+        debugPrint('Data: List (${data.length} items)');
       }
 
       debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
@@ -38,16 +39,14 @@ class DioInterceptors {
 
     // Log error details
     onError: (error, handler) {
-      final statusCode = error.response?.statusCode;
+      debugPrint('━━━━━━━━━━━━━━━━━ ERROR ━━━━━━━━━━━━━━━━');
+      debugPrint('Status: ${error.response?.statusCode}');
+      debugPrint('URL: ${error.requestOptions.path}');
+      debugPrint('Error: ${error.message}');
+
       final data = error.response?.data;
-      String? message;
       if (data is Map<String, dynamic>) {
-        message = data['message'];
-      }
-      debugPrint('ERROR: $statusCode ${error.requestOptions.path}');
-      debugPrint('Message: ${message ?? error.message}');
-      if (data != null) {
-        debugPrint('Error Data: $data');
+        debugPrint('Response Body: $data');
       }
       debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       return handler.next(error);
@@ -58,26 +57,12 @@ class DioInterceptors {
   static InterceptorsWrapper get errorHandler => InterceptorsWrapper(
     onError: (error, handler) {
       final statusCode = error.response?.statusCode;
-      final path = error.requestOptions.path;
       final errorMessage = ErrorHandler.getUserFriendlyMessage(error);
 
-      // Logging Error details
-      ErrorHandler.logError(
-        statusCode: statusCode,
-        path: path,
-        message: errorMessage,
-        data: error.response?.data,
-      );
+      // Actions based on status code
+      ErrorHandler.handleAction(statusCode);
 
-      // Handle specific status codes with actions
-      if (ErrorHandler.isUnauthorized(statusCode)) {
-        debugPrint('Action: Unauthorized detected');
-        ErrorHandler.onUnauthorized?.call();
-      } else if (ErrorHandler.isForbidden(statusCode)) {
-        debugPrint('Action: Forbidden detected');
-        ErrorHandler.onForbidden?.call();
-      }
-
+      // Show message to UI (via Get.snackbar in DialogMixin)
       ErrorHandler.onShowMessage?.call(errorMessage);
 
       return handler.next(error);
