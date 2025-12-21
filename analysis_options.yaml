@@ -1,0 +1,31 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+
+linter:
+  rules:
+    # Checks that constructors are called with `const` where possible.
+    #
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+
+    # Avoid using `print` statements in code.
+    #
+    avoid_print: true
+
+    # Prefer declaring variables as `final` if they are not reassigned.
+    #
+    prefer_final_locals: true
+
+    # Enforce that `await` is only used on `Future` objects.
+    #
+    await_only_futures: true
+    # Ensure that all referenced packages are listed as dependencies in pubspec.yaml.
+    #
+    depend_on_referenced_packages: true
+
+    # Prefer using super parameters in constructors where applicable.
+    #
+    use_super_parameters: true
