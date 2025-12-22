@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ppob_koperasi_payment/utils/localization/app_translation.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_theme.dart';
 
 import 'data/local_storage/storage_manager.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
+      translations: AppTranslation(),
+      locale: AppTranslation.locale,
+      fallbackLocale: AppTranslation.fallbackLocale,
       home: const MyHomePage(title: 'PPOB Koperasi Payment Home Page'),
     );
   }
