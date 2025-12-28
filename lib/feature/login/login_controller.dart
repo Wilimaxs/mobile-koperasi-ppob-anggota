@@ -25,13 +25,11 @@ class LoginController extends BaseController {
 
       setLoading(false);
 
-      if (response != null) {
-        await _authService.saveAuthData(
-          token: response.token ?? "",
-          user: response.user!,
-        );
-      }
-      showSuccessSnackbar(
+      await _authService.saveAuthData(
+        token: response.token ?? "",
+        user: response.user!,
+      );
+          showSuccessSnackbar(
         "Login Successful",
       );
     } catch (e) {
