@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:ppob_koperasi_payment/feature/auth/authentication.dart';
 
 class ErrorHandler {
-  static Function(String message)? onShowMessage;
   static Function()? onUnauthorized;
   static Function()? onForbidden;
 

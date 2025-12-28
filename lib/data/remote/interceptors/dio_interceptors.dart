@@ -57,13 +57,9 @@ class DioInterceptors {
   static InterceptorsWrapper get errorHandler => InterceptorsWrapper(
     onError: (error, handler) {
       final statusCode = error.response?.statusCode;
-      final errorMessage = ErrorHandler.getUserFriendlyMessage(error);
 
       // Actions based on status code
       ErrorHandler.handleAction(statusCode);
-
-      // Show message to UI (via Get.snackbar in DialogMixin)
-      ErrorHandler.onShowMessage?.call(errorMessage);
 
       return handler.next(error);
     },
