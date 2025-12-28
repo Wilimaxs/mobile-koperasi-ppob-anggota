@@ -43,7 +43,7 @@ class AuthenticationService extends GetxService {
   void _handleRouting(AuthStatus status) {
     switch (status) {
       case AuthStatus.authenticated:
-        Get.offAllNamed(Routes.login);
+        Get.offAllNamed(Routes.bottomNavigation);
         break;
       case AuthStatus.unauthenticated:
         Get.offAllNamed(Routes.login);
