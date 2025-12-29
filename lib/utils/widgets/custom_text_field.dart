@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.name,
-    required this.label,
+    this.label,
     required this.hint,
     this.obscureText = false,
     this.readOnly = false,
@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
         if (label != null) ...[
           RichText(
             text: TextSpan(
-              text: label!,
+              text: label,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(color: AppColors.text80),
