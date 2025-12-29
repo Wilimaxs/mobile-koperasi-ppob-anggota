@@ -22,19 +22,29 @@ class FormLogin extends GetView<LoginController> {
             hint: 'Enter your email',
           ),
           const SizedBox(height: 16.0),
-          CustomTextField(
-            name: 'Password',
-            label: 'Password',
-            required: true,
-            hint: 'Enter your password',
-            obscureText: true,
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.visibility_off),
-              onPressed: () {},
-              splashColor: AppColors.transparent,
-              highlightColor: AppColors.transparent,
-            ),
-          ),
+          Obx(() {
+            return CustomTextField(
+              name: 'Password',
+              label: 'Password',
+              required: true,
+              hint: 'Enter your password',
+              obscureText: controller.isPasswordObscured.value,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  controller.isPasswordObscured.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                  color: AppColors.text50,
+                ),
+                onPressed: () {
+                  controller.isPasswordObscured.value =
+                      !controller.isPasswordObscured.value;
+                },
+                splashColor: AppColors.transparent,
+                highlightColor: AppColors.transparent,
+              ),
+            );
+          }),
           const SizedBox(height: 24.0),
           Obx(
             () => PrimaryButton(

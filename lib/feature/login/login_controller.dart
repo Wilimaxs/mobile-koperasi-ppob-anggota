@@ -8,6 +8,7 @@ import 'package:ppob_koperasi_payment/feature/auth/authentication.dart';
 class LoginController extends BaseController {
   final loginFromKey = GlobalKey<FormBuilderState>();
   final _authService = Get.find<AuthenticationService>();
+  final isPasswordObscured = true.obs;
 
   Future<void> login() async {
     if (!(loginFromKey.currentState?.saveAndValidate() ?? false)) return;
