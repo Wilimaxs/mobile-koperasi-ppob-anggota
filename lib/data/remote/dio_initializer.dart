@@ -31,6 +31,7 @@ class DioInitializer {
   Future<T> get<T>({
     required String url,
     required T Function(Map<String, dynamic>) parser,
+    CancelToken? cancelToken,
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
@@ -39,6 +40,7 @@ class DioInitializer {
         url,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
       final data = response.data;
       if (data is Map<String, dynamic>) {
@@ -55,6 +57,7 @@ class DioInitializer {
     required T Function(Map<String, dynamic>) parser,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    CancelToken? cancelToken,
   }) async {
     try {
       final options = await DioOptionsBuilder.build();
@@ -63,6 +66,7 @@ class DioInitializer {
         data: data,
         queryParameters: queryParameters,
         options: options,
+        cancelToken: cancelToken,
       );
       final responseData = response.data;
       if (responseData is Map<String, dynamic>) {

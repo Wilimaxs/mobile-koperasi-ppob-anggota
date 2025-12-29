@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ppob_koperasi_payment/data/dialogMixin/dialog_mixin.dart';
@@ -10,6 +11,7 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
   final ApiService apiService = Get.find<ApiService>();
   final isLoading = false.obs;
   final isRefreshing = false.obs;
+  final cancelToken = CancelToken();
 
   final data = Rxn<T>();
 
@@ -45,6 +47,9 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
   @override
   void onClose() {
     data.value = null;
+    if (!cancelToken.isCancelled) {
+      cancelToken.cancel("Controller closed");
+    }
     super.onClose();
   }
 

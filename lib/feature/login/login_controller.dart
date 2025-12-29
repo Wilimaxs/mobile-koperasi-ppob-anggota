@@ -20,7 +20,7 @@ class LoginController extends BaseController {
 
     try {
       final response = await apiService
-          .login(email: email, password: password)
+          .login(email: email, password: password, cancelToken: cancelToken)
           .validateResponse;
 
       setLoading(false);
@@ -29,9 +29,7 @@ class LoginController extends BaseController {
         token: response.token ?? "",
         user: response.user!,
       );
-          showSuccessSnackbar(
-        "Login Successful",
-      );
+      showSuccessSnackbar("Login Successful");
     } catch (e) {
       setLoading(false);
       debugPrint("Login Error: $e");

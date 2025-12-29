@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:ppob_koperasi_payment/model/login_response.dart';
 
 import 'api_response.dart';
@@ -12,10 +13,12 @@ class ApiService {
   Future<ApiResponse<LoginResponse>> login({
     required String email,
     required String password,
+    CancelToken? cancelToken,
   }) async {
     return await _dio.post(
       url: '/auth/login',
       data: {'email': email, 'password': password},
+      cancelToken: cancelToken,
       parser: (json) => ApiResponse<LoginResponse>.fromJson(
         json,
         (data) => LoginResponse.fromJson(data),
