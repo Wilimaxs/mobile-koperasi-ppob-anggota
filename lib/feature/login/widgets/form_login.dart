@@ -36,12 +36,12 @@ class FormLogin extends GetView<LoginController> {
             ),
           ),
           const SizedBox(height: 24.0),
-          PrimaryButton(
-            text: 'Login',
-            onPressed: () {
-              controller.login();
-              // Get.offAllNamed(Routes.bottomNavigation);
-            },
+          Obx(
+            () => PrimaryButton(
+              text: 'Login',
+              isLoading: controller.isLoading.value,
+              onPressed: controller.isLoading.value ? null : controller.login,
+            ),
           ),
         ],
       ),
