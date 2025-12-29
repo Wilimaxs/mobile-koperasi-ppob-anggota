@@ -30,22 +30,14 @@ class StateHandle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (loadingWidget != null && isLoading) {
-      return loadingWidget!;
-    }
-
-    return Stack(
-      children: [
-        _buildMainContent(),
-        if (isLoading && loadingWidget == null) ...[
-          const ModalBarrier(dismissible: false, color: Colors.transparent),
+    if (isLoading) {
+      return loadingWidget ??
           Container(
-            color: Colors.black.withAlpha(25),
+            color: Colors.white,
             child: const Center(child: CircularProgressIndicator()),
-          ),
-        ],
-      ],
-    );
+          );
+    }
+    return _buildMainContent();
   }
 
   Widget _buildMainContent() {
