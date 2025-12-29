@@ -14,7 +14,7 @@ mixin DialogMixin {
     Get.snackbar(
       title,
       message,
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       backgroundColor: bgColor,
       colorText: Colors.white,
       icon: Icon(icon, color: Colors.white),
