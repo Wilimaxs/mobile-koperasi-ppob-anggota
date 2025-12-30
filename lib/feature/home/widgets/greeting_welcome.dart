@@ -13,21 +13,24 @@ class GreetingWelcome extends GetView<HomeController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Welcome, ',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+        Obx(() {
+            return RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Welcome, ',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  TextSpan(
+                    text: controller.user.value?.name ?? 'User',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ],
               ),
-              TextSpan(
-                text: controller.user.value?.name ?? 'User',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            ],
-          ),
+            );
+          }
         ),
         Container(
           width: 34,
