@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/balance_card.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/greeting_welcome.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/highlight_ppob_product.dart';
-import 'package:ppob_koperasi_payment/feature/home/widgets/income_outcome_card.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/news_section.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,8 +21,6 @@ class HomePage extends StatelessWidget {
                 BalanceCard(),
                 SizedBox(height: 24),
                 HighlightPpobProduct(),
-                SizedBox(height: 24),
-                IncomeOutcomeCard(),
                 SizedBox(height: 24),
                 NewsSection(),
               ],
