@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:ppob_koperasi_payment/feature/home/home_controller.dart';
 import 'package:ppob_koperasi_payment/gen/assets.gen.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 
-class GreetingWelcome extends StatelessWidget {
+class GreetingWelcome extends GetView<HomeController> {
   const GreetingWelcome({super.key});
 
   @override
@@ -21,7 +23,7 @@ class GreetingWelcome extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: 'Wilimaxs',
+                text: controller.user.value?.name ?? 'User',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ],
