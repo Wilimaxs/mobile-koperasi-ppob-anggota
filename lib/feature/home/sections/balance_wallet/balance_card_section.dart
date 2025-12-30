@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:ppob_koperasi_payment/feature/home/home_controller.dart';
+import 'package:ppob_koperasi_payment/feature/home/sections/balance_wallet/balance_card_controller.dart';
 import 'package:ppob_koperasi_payment/gen/assets.gen.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 import 'package:ppob_koperasi_payment/utils/widgets/primary_button.dart';
 
-class BalanceCard extends GetView<HomeController> {
+class BalanceCard extends GetView<BalanceCardController> {
   const BalanceCard({super.key});
 
   @override

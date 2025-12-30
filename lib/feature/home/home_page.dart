@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ppob_koperasi_payment/feature/home/widgets/balance_card.dart';
+import 'package:ppob_koperasi_payment/feature/home/sections/balance_wallet/balance_card_section.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/greeting_welcome.dart';
 import 'package:ppob_koperasi_payment/feature/home/sections/highlight_product/highlight_product_section.dart';
 import 'package:ppob_koperasi_payment/feature/home/widgets/news_section.dart';
