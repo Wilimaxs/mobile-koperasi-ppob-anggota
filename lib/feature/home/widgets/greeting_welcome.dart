@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:ppob_koperasi_payment/gen/assets.gen.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 
 class GreetingWelcome extends StatelessWidget {
@@ -26,8 +28,8 @@ class GreetingWelcome extends StatelessWidget {
           ),
         ),
         Container(
-          width: 32,
-          height: 32,
+          width: 34,
+          height: 34,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.white,
@@ -43,7 +45,11 @@ class GreetingWelcome extends StatelessWidget {
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             onPressed: () {},
-            icon: const Icon(Icons.notifications_none_outlined, size: 24),
+            icon: SvgPicture.asset(
+              Assets.icons.icNotificationHome.path,
+              width: 18,
+              height: 18,
+            )
           ),
         ),
       ],

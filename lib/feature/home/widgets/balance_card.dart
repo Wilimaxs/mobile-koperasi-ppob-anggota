@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ppob_koperasi_payment/gen/assets.gen.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 import 'package:ppob_koperasi_payment/utils/widgets/primary_button.dart';
 
@@ -29,11 +31,11 @@ class BalanceCard extends StatelessWidget {
                     )
                   ),
                   const SizedBox(width: 8),
-                  const Icon(
-                    Icons.visibility_off_outlined,
-                    color: AppColors.white,
-                    size: 18,
-                  ),
+                  SvgPicture.asset(
+                    Assets.icons.icActiveBalance.path,
+                    width: 18,
+                    height: 18,
+                  )
                 ],
               ),
               InkWell(

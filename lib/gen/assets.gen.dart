@@ -17,12 +17,24 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/ic_active_balance.svg
+  SvgGenImage get icActiveBalance =>
+      const SvgGenImage('assets/icons/ic_active_balance.svg');
+
   /// File path: assets/icons/ic_google_login.svg
   SvgGenImage get icGoogleLogin =>
       const SvgGenImage('assets/icons/ic_google_login.svg');
 
+  /// File path: assets/icons/ic_notification_home.svg
+  SvgGenImage get icNotificationHome =>
+      const SvgGenImage('assets/icons/ic_notification_home.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [icGoogleLogin];
+  List<SvgGenImage> get values => [
+    icActiveBalance,
+    icGoogleLogin,
+    icNotificationHome,
+  ];
 }
 
 class Assets {
