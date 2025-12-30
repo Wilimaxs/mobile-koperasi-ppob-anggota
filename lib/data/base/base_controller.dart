@@ -11,6 +11,8 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
   final ApiService apiService = Get.find<ApiService>();
   final isLoading = false.obs;
   final isRefreshing = false.obs;
+  final isEmpty = false.obs;
+  final isError = false.obs;
   final cancelToken = CancelToken();
 
   final data = Rxn<T>();
@@ -18,6 +20,10 @@ abstract class BaseController<T> extends GetxController with DialogMixin {
   final storage = StorageManager();
 
   void setLoading(bool value) => isLoading.value = value;
+
+  void setEmpty(bool value) => isEmpty.value = value;
+
+  void setError(bool value) => isError.value = value;
 
   void hideKeyboard() {
     final context = Get.context;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ppob_koperasi_payment/model/product_category.dart';
 import 'package:ppob_koperasi_payment/model/user_balance.dart';
 import 'package:ppob_koperasi_payment/model/login_response.dart';
 
@@ -36,9 +37,22 @@ class ApiService {
       cancelToken: cancelToken,
       parser: (json) => ApiResponse<UserBalance>.fromJson(
         json,
-            (data) => UserBalance.fromJson(data),
+        (data) => UserBalance.fromJson(data),
       ),
     );
   }
 
+  // Get product highlight API
+  Future<ApiResponseList<ProductCategory>> getHighlightProduct({
+    CancelToken? cancelToken,
+  }) async {
+    return await _dio.get(
+      url: '/product/highlight',
+      cancelToken: cancelToken,
+      parser: (json) => ApiResponseList<ProductCategory>.fromJson(
+        json,
+        (data) => ProductCategory.fromJson(data),
+      ),
+    );
+  }
 }

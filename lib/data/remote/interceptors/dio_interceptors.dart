@@ -33,6 +33,10 @@ class DioInterceptors {
         debugPrint('Data: List (${data.length} items)');
       }
 
+      if (data is Map<String, dynamic>) {
+        debugPrint('Response Body: $data');
+      }
+
       debugPrint('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       return handler.next(response);
     },
