@@ -73,7 +73,9 @@ class BalanceCard extends GetView<HomeController> {
           const SizedBox(height: 16),
           Obx(() {
             return Text(
-              controller.isVisibleBalance.value ? 'Rp 12.000.000' : 'Rp ••••••',
+              controller.isVisibleBalance.value
+                  ? controller.data.value?.formatBalance ?? ""
+                  : 'Rp ••••••',
               style: Theme.of(
                 context,
               ).textTheme.headlineLarge?.copyWith(color: AppColors.white),

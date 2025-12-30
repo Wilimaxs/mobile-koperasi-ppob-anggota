@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ppob_koperasi_payment/model/user_balance.dart';
 import 'package:ppob_koperasi_payment/model/login_response.dart';
 
 import 'api_response.dart';
@@ -9,7 +10,7 @@ class ApiService {
 
   ApiService(this._dio);
 
-  // Example of a specific API call method (login)
+  // Login API
   Future<ApiResponse<LoginResponse>> login({
     required String email,
     required String password,
@@ -26,13 +27,18 @@ class ApiService {
     );
   }
 
-  // Example of a specific API call method (get products)
-  Future<ApiResponseList<T>> getProducts<T>({
-    required T Function(Map<String, dynamic>) modelParser,
+  // Balance User API
+  Future<ApiResponse<UserBalance>> getBalance({
+    CancelToken? cancelToken,
   }) async {
     return await _dio.get(
-      url: '/products',
-      parser: (json) => ApiResponseList<T>.fromJson(json, modelParser),
+      url: '/payment/wallet/balance',
+      cancelToken: cancelToken,
+      parser: (json) => ApiResponse<UserBalance>.fromJson(
+        json,
+            (data) => UserBalance.fromJson(data),
+      ),
     );
   }
+
 }
