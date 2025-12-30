@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:ppob_koperasi_payment/feature/home/home_controller.dart';
 import 'package:ppob_koperasi_payment/gen/assets.gen.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 import 'package:ppob_koperasi_payment/utils/widgets/primary_button.dart';
 
-class BalanceCard extends StatelessWidget {
+class BalanceCard extends GetView<HomeController> {
   const BalanceCard({super.key});
 
   @override
@@ -26,16 +28,23 @@ class BalanceCard extends StatelessWidget {
                 children: [
                   Text(
                     'Active Balance',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.white
-                    )
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: AppColors.white),
                   ),
                   const SizedBox(width: 8),
-                  SvgPicture.asset(
-                    Assets.icons.icActiveBalance.path,
-                    width: 18,
-                    height: 18,
-                  )
+                  Obx(() {
+                    return InkWell(
+                      onTap: controller.isVisibleBalance.toggle,
+                      child: SvgPicture.asset(
+                        controller.isVisibleBalance.value
+                            ? Assets.icons.icActiveBalanceShow.path
+                            : Assets.icons.icActiveBalanceHidden.path,
+                        width: 18,
+                        height: 18,
+                      ),
+                    );
+                  }),
                 ],
               ),
               InkWell(
@@ -45,10 +54,10 @@ class BalanceCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                        'History',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.white,
-                        )
+                      'History',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: AppColors.white),
                     ),
                     const SizedBox(width: 4),
                     const Icon(
@@ -62,17 +71,16 @@ class BalanceCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Text(
-            'Rp 12.000.000',
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-              color: AppColors.white,
-            )
-          ),
+          Obx(() {
+            return Text(
+              controller.isVisibleBalance.value ? 'Rp 12.000.000' : 'Rp ••••••',
+              style: Theme.of(
+                context,
+              ).textTheme.headlineLarge?.copyWith(color: AppColors.white),
+            );
+          }),
           const SizedBox(height: 16),
-          const Divider(
-            color: AppColors.white,
-            thickness: 0.5,
-          ),
+          const Divider(color: AppColors.white, thickness: 0.5),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

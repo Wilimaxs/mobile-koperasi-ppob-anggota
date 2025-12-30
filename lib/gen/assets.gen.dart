@@ -17,9 +17,13 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/ic_active_balance.svg
-  SvgGenImage get icActiveBalance =>
-      const SvgGenImage('assets/icons/ic_active_balance.svg');
+  /// File path: assets/icons/ic_active_balance_hidden.svg
+  SvgGenImage get icActiveBalanceHidden =>
+      const SvgGenImage('assets/icons/ic_active_balance_hidden.svg');
+
+  /// File path: assets/icons/ic_active_balance_show.svg
+  SvgGenImage get icActiveBalanceShow =>
+      const SvgGenImage('assets/icons/ic_active_balance_show.svg');
 
   /// File path: assets/icons/ic_google_login.svg
   SvgGenImage get icGoogleLogin =>
@@ -31,7 +35,8 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
-    icActiveBalance,
+    icActiveBalanceHidden,
+    icActiveBalanceShow,
     icGoogleLogin,
     icNotificationHome,
   ];
