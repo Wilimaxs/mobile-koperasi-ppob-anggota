@@ -17,6 +17,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool more = isMore ?? false;
+    final bool hasNoIcon = iconUrl == null || iconUrl!.isEmpty;
     return Column(
       children: [
         Container(
@@ -31,7 +32,7 @@ class ProductItem extends StatelessWidget {
                   color: AppColors.primaryLight,
                   size: 28,
                 )
-              : (iconUrl == null || iconUrl!.isEmpty)
+              : hasNoIcon
               ? const Icon(
                   Icons.phone_android,
                   color: AppColors.primaryLight,

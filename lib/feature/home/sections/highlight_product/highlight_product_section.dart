@@ -52,13 +52,13 @@ class HighlightPpobProduct extends GetView<HighlightProductController> {
                   childAspectRatio: 0.85,
                 ),
                 itemBuilder: (context, index) {
-                  if (index == (controller.data.value?.length ?? 0)) {
+                  final list = controller.data.value ?? [];
+                  if (index == list.length) {
                     return const ProductItem(label: 'Lainnya', isMore: true);
                   }
-                  final product = controller.data.value![index];
                   return ProductItem(
-                    iconUrl: product.iconUrl,
-                    label: product.displayName ?? '',
+                    iconUrl: list[index].iconUrl,
+                    label: list[index].displayName ?? '',
                   );
                 },
               ),

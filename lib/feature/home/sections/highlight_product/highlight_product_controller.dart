@@ -6,19 +6,20 @@ class HighlightProductController extends BaseController<List<ProductCategory>> {
   @override
   void onInit() {
     super.onInit();
-    getHighlightProducts();
+    fetchData();
   }
 
-  Future<void> getHighlightProducts() async {
+  @override
+  Future<void> fetchData() async {
     try {
-      setLoading(true);
+      if (!isRefreshing.value) setLoading(true);
       setError(false);
       setEmpty(false);
-      final response = await apiService.getHighlightProduct().validateResponse;
+      final response = await apiService
+          .getHighlightProduct(cancelToken: cancelToken)
+          .validateResponse;
       data.value = response;
-      if (response.isEmpty) {
-        setEmpty(true);
-      }
+      setEmpty(response.isEmpty);
     } catch (e) {
       setError(true);
       showError(e);
