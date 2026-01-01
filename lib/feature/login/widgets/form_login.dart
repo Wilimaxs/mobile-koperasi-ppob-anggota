@@ -20,6 +20,7 @@ class FormLogin extends GetView<LoginController> {
             label: 'Email',
             required: true,
             hint: 'Enter your email',
+            textInputAction: TextInputAction.next,
           ),
           const SizedBox(height: 16.0),
           Obx(() {
