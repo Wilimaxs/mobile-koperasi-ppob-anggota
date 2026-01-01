@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ppob_koperasi_payment/feature/bottom_confirmation/bottom_confirmation_page.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 import 'package:ppob_koperasi_payment/utils/widgets/primary_button.dart';
 
@@ -56,10 +57,17 @@ class ProductItemPrepaid extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     PrimaryButton(
-                      text: 'purchase',
+                      text: 'Chek Detail',
                       height: 42,
                       onPressed: () {
-                        // Handle purchase action
+                        showModalBottomSheet(
+                          context: context,
+                          isDismissible: false,
+                          enableDrag: false,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => const BottomConfirmationPage(),
+                        );
                       },
                     ),
                   ],
