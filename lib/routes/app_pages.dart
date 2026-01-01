@@ -5,6 +5,8 @@ import 'package:ppob_koperasi_payment/feature/home/home_page.dart';
 import 'package:ppob_koperasi_payment/feature/loader/loader_page.dart';
 import 'package:ppob_koperasi_payment/feature/login/login_binding.dart';
 import 'package:ppob_koperasi_payment/feature/login/login_page.dart';
+import 'package:ppob_koperasi_payment/feature/pulsa/pulsa_binding.dart';
+import 'package:ppob_koperasi_payment/feature/pulsa/pulsa_page.dart';
 
 part 'app_routes.dart';
 
@@ -25,6 +27,13 @@ class PageRoutes {
       name: Routes.home,
       page: () => const HomePage(),
       binding: BottomNavigationBinding(),
+    ),
+    GetPage(
+      name: Routes.pulsa,
+      page: () => const PulsaPage(),
+      binding: PulsaBinding(),
+      transition: Transition.fade,
+      transitionDuration: const Duration(milliseconds: 300),
     ),
   ];
 }
