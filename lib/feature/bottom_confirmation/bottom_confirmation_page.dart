@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ppob_koperasi_payment/feature/bottom_confirmation/bottom_confirmation_controller.dart';
+import 'package:ppob_koperasi_payment/feature/bottom_confirmation/widgets/info_item.dart';
 import 'package:ppob_koperasi_payment/utils/theme/app_color.dart';
 import 'package:ppob_koperasi_payment/utils/widgets/primary_button.dart';
 
@@ -59,28 +60,23 @@ class BottomConfirmationPage extends GetView<BottomConfirmationController> {
           const SizedBox(height: 12),
 
           // Daftar Informasi (Hardcoded Dummy)
-          _buildInfoItem(
-            context,
-            'ID Produk',
-            controller.data.value?.productCode ?? '-',
+          InfoItem(
+            label: 'ID Produk',
+            value: controller.data.value?.productCode ?? '-',
           ),
-          _buildInfoItem(
-            context,
-            'Nama Produk',
-            controller.data.value?.productName ?? '-',
+          InfoItem(
+            label: 'Nama Produk',
+            value: controller.data.value?.productName ?? '-',
           ),
-          _buildInfoItem(context, 'Nomor Telepon', "081323232"),
-          _buildInfoItem(
-            context,
-            'Status',
-            (controller.data.value?.status ?? false) ? 'Tersedia' : 'Habis',
+          const InfoItem(label: 'Nomor Telepon', value: "081323232"),
+          InfoItem(
+            label: 'Status',
+            value: (controller.data.value?.status ?? false)
+                ? 'Tersedia'
+                : 'Habis',
             valueColor: Colors.green,
           ),
-          _buildInfoItem(
-            context,
-            'Harga',
-            'Rp ${controller.data.value?.price}',
-          ),
+          InfoItem(label: 'Harga', value: 'Rp ${controller.data.value?.price}'),
 
           const SizedBox(height: 16),
           // Deskripsi
@@ -106,34 +102,6 @@ class BottomConfirmationPage extends GetView<BottomConfirmationController> {
             onPressed: () {
               Navigator.pop(context);
             },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoItem(
-    BuildContext context,
-    String label,
-    String value, {
-    Color? valueColor,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: AppColors.text50),
-          ),
-          Text(
-            value,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
           ),
         ],
       ),
